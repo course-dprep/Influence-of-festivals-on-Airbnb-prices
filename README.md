@@ -10,7 +10,6 @@ Airbnb has been growing their sales inmensely the last few years. Airbnb is a co
 # Research method
 
 Looks like we are going to use a ANOVA. 
-THIS IS A TEST
 
 # Repository overview
 ```
