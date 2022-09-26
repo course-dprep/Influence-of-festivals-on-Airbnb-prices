@@ -20,3 +20,16 @@ head(data_maart)
 View(data_september)
 summary(data_september)
 head(data_september)
+
+# Download the calendar data from march
+download.file('http://data.insideairbnb.com/united-states/la/new-orleans/2022-03-08/data/calendar.csv.gz', 'data/dataset1/calendar_data_maart.csv')
+
+# Read calendar data set
+library(readr)
+calendar_data_maart <- read.csv('data/dataset1/calendar_data_maart.csv')
+
+# Generate summary statistics for calendar data
+View(calendar_data_maart)
+summary(calendar_data_maart)
+head(calendar_data_maart)
+tail(calendar_data_maart)
