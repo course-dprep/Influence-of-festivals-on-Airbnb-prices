@@ -2,20 +2,15 @@
 This research proposes to investigate the relationship between festivals taking place and the prices of Airbnb's, in New Orleans. It is hypothesized that whenever a festival is taking place, demand for Airbnb's will increase, and therefore average prices of Airbnb's will increase as well on these days. 
 
 ## Research motivation
-Airbnb is a company which facilitates as an online marketplace for lodging, homestays for vacation rentals and tourism activities. Since Airbnb is an online marketplace, its prices depend highly on the demand for B&Bs. When demand is increasing, so will the prices of Airbnb's. In this research festivals will be taken into account as they can increase the demand for Airbnb's. During festivals that last longer than a few days, the demand for Airbnb's is expected to increase, due to visitors at the festivals that do not live nearby, and therefore need an accommodation to stay during the time of the festival. In order to research the effect of festivals on the Airbnb prices, this project focusses on Airbnb’s in New Orleans and 3 festivals taking place in that area, namely Mardi Gras, French Quarter Festival and New Orleans Jazz Festival. 
-
--     Mardi Gras 1 March 2022
--     French Quarter Festival 21-24 of April 2022
--     New Orleans Jazz Festival 29 of April - May 8 2022
 
 ## Research Question
-What is the effect of festivals taking place in New Orleans on the Airbnb prices?
+What is the typical price mark-up for Airbnb accommodations during a festival in New Orleans?
 
 ## Research method
 
 To analyze the price mark-up for Airbnb accommodations during a festival in New Orleans, we will use an ANOVA analysis. The dependent variable is the average price of an Airbnb accommodations per day. And as an independent variable, a dummy variable on whether any of the three festivals is taking place (whereas 0 = no festival taking place and 1 = either one of the 3 festivals is taking place), will be taken into the model.
 
-Data from [Inside Airbnb](http://insideairbnb.com/new-orleans) will be used over << x years >>.
+Data from [Inside Airbnb](http://insideairbnb.com/new-orleans) will be used over 2022.
 
 ## Repository overview
 ```
