@@ -2,6 +2,11 @@
 This research proposes to investigate the relationship between festivals taking place and the prices of Airbnb's, in New Orleans. It is hypothesized that whenever a festival is taking place, demand for Airbnb's will increase, and therefore average prices of Airbnb's will increase as well on these days. 
 
 ## Research motivation
+Airbnb is a company which facilitates as an online marketplace for lodging, homestays for vacation rentals and tourism activities. Since Airbnb is an online marketplace, its prices depend highly on the demand for B&Bs. When demand is increasing, so will the prices of Airbnb's. In this research festivals will be taken into account as they can increase the demand for Airbnb's. During festivals the demand for Airbnb's is expected to increase, due to visitors at the festivals that do not live nearby, and therefore need an accommodation to stay during the time of the festival. In order to research the effect of festivals on the Airbnb prices, this project focusses on Airbnb’s in New Orleans and 3 festivals taking place in that area, namely: 
+
+- Mardi Gras: 1 march 2022
+- French Quarter Festival: 21 april 2022 - 24 april 2022
+- New Orleans Jazz Festival: 29 april - 8 may 2022
 
 ## Research Question
 What is the typical price mark-up for Airbnb accommodations during a festival in New Orleans?
