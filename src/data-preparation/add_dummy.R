@@ -16,5 +16,11 @@ df_merged$French_Quarter_2022 <- if_else(df_merged$date >= as.Date('2022-04-21')
 df_merged$Jazz_Heritage_2022 <- if_else(df_merged$date >= as.Date('2022-04-29') & df_merged$date <= as.Date('2022-05-08'),TRUE,FALSE)
 df_merged$festival_date <- if_else(df_merged$Mardi_Gras_2023 |df_merged$French_Quarter_2022 | df_merged$Jazz_Heritage_2022 == 1, TRUE, FALSE)
 
+# Include dummies as factor for anova
+df_merged$Mardi_Gras_2022_factor <- as.factor(df_merged$Mardi_Gras_2022)
+df_merged$French_Quarter_2022_factor <- as.factor(df_merged$French_Quarter_2022)
+df_merged$Jazz_Heritage_2022_factor <- as.factor(df_merged$Jazz_Heritage_2022)
+df_merged$festival_date_factor <- as.factor(df_merged$festival_date)
+
 # Save as df_dummy_added
 write_csv(df_merged,file="./gen/data-preparation/temp/df_dummy_added.csv")
