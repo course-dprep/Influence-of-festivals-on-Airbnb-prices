@@ -1,11 +1,12 @@
-# load 
-load("./gen/analysis/input/data_cleaned.RData")
+# load libraries
+library(readr)
+library(car)
 
-# Estimate model 1 
-m1 <- lm(V1 ~ V3 + V4,df_cleaned)
+# Read input
+data_input <- read_csv("./gen/analysis/input/data_ready_for_analysis.csv")
 
-# Estimate model 2 
-m2 <- lm(V1 ~ V3 + V4 + V5 , df_cleaned)
-
-# Save results
-save(m1,m2,file="./gen/analysis/output/model_results.RData")
+# Conduct Anova
+Anova_festivals <- lm(price_numeric ~ 
+                        Mardi_Gras_2022_factor+French_Quarter_2022_factor+Jazz_Heritage_2022_factor,data_input, 
+                      contrasts=list(Mardi_Gras_2022_factor=contr.sum, French_Quarter_2022_factor=contr.sum, Jazz_Heritage_2022_factor=contr.sum))
+Anova(anova_festivals, type=3)
