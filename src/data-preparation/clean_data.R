@@ -1,11 +1,9 @@
 # Load merged data 
 df_merged <- read_csv("./gen/data-preparation/temp/df_merged_clean.csv")
 
-# Drop observations with V1 <= -0.9
-#df_cleaned <- df_merged[df_merged$V1 > -0.9,]
+# set price as numeric
+df_merged$price_numeric <- as.numeric(parse_number(df_merged$price.x))
 
-# Remove V1
-#df_cleaned <- df_cleaned[,c(1,2,4:7)]
 
-# Save cleaned data
-#save(df_cleaned,file="./gen/data-preparation/output/data_cleaned.RData")
+
+write.csv(df_merged,file="./gen/data-preparation/temp/df_merged_clean.csv"))
