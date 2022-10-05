@@ -6,4 +6,4 @@ df_merged$price_numeric <- as.numeric(parse_number(df_merged$price.x))
 
 
 
-write.csv(df_merged,file="./gen/data-preparation/temp/df_merged_clean.csv"))
+write.csv(df_merged,file="./gen/data-preparation/temp/df_merged_clean.csv")
