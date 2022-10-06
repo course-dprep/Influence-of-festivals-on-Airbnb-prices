@@ -8,9 +8,6 @@ View(df_merged)
 # French Quarter Festival 21 April - 24 April 2022
 # New Orleans Jazz & Heritage Festival 29 April - 8 May 2022
 
-
-df_merged$Mardi_Gras_test <- if_else(df_merged$date >= as.Date('2022-05-03') & df_merged$date <= as.Date('2022-05-08'),TRUE,FALSE)
-
 df_merged$Mardi_Gras_2022 <- if_else(df_merged$date >= as.Date('2022-02-23') & df_merged$date <= as.Date('2022-03-01'),TRUE,FALSE)
 df_merged$French_Quarter_2022 <- if_else(df_merged$date >= as.Date('2022-04-21') & df_merged$date <= as.Date('2022-04-24'),TRUE,FALSE)
 df_merged$Jazz_Heritage_2022 <- if_else(df_merged$date >= as.Date('2022-04-29') & df_merged$date <= as.Date('2022-05-08'),TRUE,FALSE)
