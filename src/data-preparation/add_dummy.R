@@ -1,6 +1,28 @@
-# Create dummy for each festival separately and for any festival
+# Load data
+df_merged <- read_csv("./gen/data-preparation/temp/df_merged_clean.csv")
+View(df_merged)
 
-calendar_data_maart$Mardi_Gras_2023 <- if_else(calendar_data_maart$date_try >= as.Date('2023-02-23') & calendar_data_maart$date_try <= as.Date('2023-03-01'),TRUE,FALSE)
-calendar_data_maart$French_Quarter_2022 <- if_else(calendar_data_maart$date_try >= as.Date('2022-04-21') & calendar_data_maart$date_try <= as.Date('2022-04-24'),TRUE,FALSE)
-calendar_data_maart$Jazz_Heritage_2022 <- if_else(calendar_data_maart$date_try >= as.Date('2022-04-29') & calendar_data_maart$date_try <= as.Date('2022-05-08'),TRUE,FALSE)
-calendar_data_maart$festival_date <- if_else(calendar_data_maart$Mardi_Gras_2023 |calendar_data_maart$French_Quarter_2022 | calendar_data_maart$Jazz_Heritage_2022 == 1, TRUE, FALSE)
+# Create dummy variables for festival dates
+
+# Mardi Gras 23 February - 1 March 2022
+# French Quarter Festival 21 April - 24 April 2022
+# New Orleans Jazz & Heritage Festival 29 April - 8 May 2022
+
+df_merged$Mardi_Gras_2022 <- if_else(df_merged$date >= as.Date('2022-02-23') & df_merged$date <= as.Date('2022-03-01'),TRUE,FALSE)
+df_merged$French_Quarter_2022 <- if_else(df_merged$date >= as.Date('2022-04-21') & df_merged$date <= as.Date('2022-04-24'),TRUE,FALSE)
+df_merged$Jazz_Heritage_2022 <- if_else(df_merged$date >= as.Date('2022-04-29') & df_merged$date <= as.Date('2022-05-08'),TRUE,FALSE)
+
+# Include dummies as factor for analysis
+df_merged$Mardi_Gras_2022_factor <- as.factor(df_merged$Mardi_Gras_2022)
+df_merged$French_Quarter_2022_factor <- as.factor(df_merged$French_Quarter_2022)
+df_merged$Jazz_Heritage_2022_factor <- as.factor(df_merged$Jazz_Heritage_2022)
+
+# create weekday variable
+df_merged$weekday <- weekdays(df_merged$date)
+
+# add weekday and neighbourhood as factor for analysis
+df_merged$weekday_factor <- as.factor(df_merged$weekday)
+df_merged$host_neighbourhood_factor <- as.factor(df_merged$host_neighbourhood)
+
+# Save as df_dummy_added
+write_csv(df_merged,file="./gen/data-preparation/temp/df_dummy_added.csv")
