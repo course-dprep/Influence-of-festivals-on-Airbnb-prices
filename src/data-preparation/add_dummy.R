@@ -20,8 +20,9 @@ df_merged$Jazz_Heritage_2022_factor <- as.factor(df_merged$Jazz_Heritage_2022)
 # create weekday variable
 df_merged$weekday <- weekdays(df_merged$date)
 
-# add weekday as factor for analysis
+# add weekday and neighbourhood as factor for analysis
 df_merged$weekday_factor <- as.factor(df_merged$weekday)
+df_merged$host_neighbourhood_factor <- as.factor(df_merged$host_neighbourhood)
 
 # Save as df_dummy_added
 write_csv(df_merged,file="./gen/data-preparation/temp/df_dummy_added.csv")
