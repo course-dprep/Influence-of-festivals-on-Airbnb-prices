@@ -50,15 +50,24 @@ From our conducted analysis we conclude the following:
 
 ## Dependencies
 -   R
--   R packages: 'install.packages("tidyverse")', 'install.packages("dplyr"), 'install.packages("readr")', 'install.packages("knitr")', 'install.packages("ggplot2")', 'install.packages("here")'
+-   R packages: 
+```
+'install.packages("tidyverse")', 'install.packages("dplyr"), 'install.packages("readr")', 'install.packages("knitr")', 'install.packages("ggplot2")', 'install.packages("here")'
+```
 -   Gnu Make: to be downloaded from: https://tilburgsciencehub.com/get/make
 
 ## Running instructions
 
 To run the entire project at once:
 1. Fork this repository
-2. Open the terminal and run the following: git clone https://github.com/course-dprep/Influence-of-festivals-on-Airbnb-prices.git
-3. Set you working directory to Influence-of-festivals-on-Airbnb-prices and run the following command: make
+2. Open the terminal and run the following: 
+```
+git clone https://github.com/course-dprep/Influence-of-festivals-on-Airbnb-prices.git
+```
+3. Set you working directory to Influence-of-festivals-on-Airbnb-prices and run the following command: 
+```
+make
+```
 
 ## About
 
