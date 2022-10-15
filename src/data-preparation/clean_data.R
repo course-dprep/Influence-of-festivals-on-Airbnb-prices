@@ -1,7 +1,7 @@
 # Data preparation/cleaning
 
 # Load merged data 
-df_merged <- read_csv("./gen/data-preparation/temp/df_merged_clean.csv")
+df_merged <- read_csv("./gen/data-preparation/temp/df_merged.csv")
 
 # Set price as numeric
 df_merged$price_numeric <- as.numeric(parse_number(df_merged$price.x))
