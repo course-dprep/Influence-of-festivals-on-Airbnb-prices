@@ -22,16 +22,16 @@ What is the typical price mark-up for Airbnb accommodations during a festival in
 
 To analyze the price mark-up for Airbnb accommodations during a festival in New Orleans, we will use a regression analysis. The independent variable is the average price of an Airbnb accommodations per day and as a dependent variable, we created dummy variables of whether the festival is taking place or not (whereas 0 = no festival taking place and 1 = festival taking place). Moreover, we also added 2 control variables (e.g. neighborhood and weekdays) to investigate whether the differences in price mark-up may be due to the day of the week on which the festival is taking place and whether the prices differ largely across neighborhoods.
 
-Data from [Inside Airbnb](http://insideairbnb.com/new-orleans) will be used over \<\<\< still to insert exact dates of our analysis here \>\>\>.
+Data from [Inside Airbnb](http://insideairbnb.com/new-orleans) will be used over March 2022 - September 2022
 
 ### Results
 
 From our conducted analysis we conclude the following:
 
--   The average price of an AirBnB when there is no festival taking place is €...
--   The average price of an AirBnB during \<\< festival \>\> is €.... higher compared to when there is no festival taking place
--   The average price of an AirBnB during \<\< festival \>\> is €.... higher compared to when there is no festival taking place
--   The average price of an AirBnB during \<\< festival \>\> is €.... higher compared to when there is no festival taking place
+-   The average price of an AirBnB when there is no festival taking place is €319.00
+-   The average price mark-up of an AirBnB during French Quarter Festival is approximately €40.21
+-   The average price mark-up of an AirBnB during New Orleans Heritage & Jazz Festival is approximately €105.59
+-   The average price mark-up of an AirBnB during Mardi Gras is approximately €192.84
 
 ## Repository overview
 
@@ -48,34 +48,18 @@ From our conducted analysis we conclude the following:
     - README.md
     - Makefile
 
+## Dependencies
+-   R
+-   R packages: 'install.packages("tidyverse")', 'install.packages("dplyr"), 'install.packages("readr")', 'install.packages("knitr")', 'install.packages("ggplot2")', 'install.packages("here")'
+-   Gnu Make: to be downloaded from: https://tilburgsciencehub.com/get/make
+
 ## Running instructions
 
--   How to run the workflow
--   Software including how to install them
--   How to run the workflow
+To run the entire project at once:
+1. Fork this repository
+2. Open the terminal and run the following: git clone https://github.com/course-dprep/Influence-of-festivals-on-Airbnb-prices.git
+3. Set you working directory to Influence-of-festivals-on-Airbnb-prices and run the following command: make
 
 ## About
 
 This research project was created by Roel Timmerman, Kansu Turay, Mandy Vervoort, Gijs van Uden and Daan van Woudenberg for the Data Preparation and Workflow Management course at Tilburg University.
-
-## 
-
-This is a basic example repository using Gnu make for a reproducible research workflow, as described in detail here: [tilburgsciencehub.com](http://tilburgsciencehub.com/).
-
-The main aim of this to have a basic structure, which can be easily adjusted to use in an actual project. In this example project, the following is done: 1. Download and prepare data 2. Run some analysis 3. Present results in a final pdf generated using LaTeX
-
-### Dependencies
-
--   R
--   R packages: `install.packages("stargazer")`
--   [Gnu Make](https://tilburgsciencehub.com/get/make)
--   [TeX distribution](https://tilburgsciencehub.com/get/latex/?utm_campaign=referral-short)
--   For the `makefile` to work, R, Gnu make and the TeX distribution (specifically `pdflatex`) need to be made available in the system path
--   Detailed installation instructions can be found here: [tilburgsciencehub.com](http://tilburgsciencehub.com/)
-
-### Notes
-
--   `make clean` removes all unncessary temporary files.
--   Tested under Linux Mint (should work in any linux distro, as well as on Windows and Mac)
--   IMPORTANT: In `makefile`, when using `\` to split code into multiple lines, no space should follow `\`. Otherwise Gnu make aborts with error 193.
--   Many possible improvements remain. Comments and contributions are welcome!
