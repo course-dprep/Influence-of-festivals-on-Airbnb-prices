@@ -1,9 +1,10 @@
 DATA = ../../data
 TEMP = /gen/data-preparation/temp/
+OUTPUT = ../../output
 
 # OVERALL BUILD
 
-all: $(DATA)/listings_maart.csv $(DATA)/listings_december.csv $(DATA)/calendar_maart.csv $(DATA)/calendar_december.csv $(TEMP)/df_merged_clean.csv $(TEMP)/df_dummy_added.csv $(TEMP)/data_preparation.pdf
+all: $(DATA)/listings_maart.csv $(DATA)/listings_december.csv $(DATA)/calendar_maart.csv $(DATA)/calendar_december.csv $(TEMP)/df_merged_clean.csv $(TEMP)/df_dummy_added.csv $(OUTPUT)/data_preparation.pdf
 
 #SUB BUILD
 
@@ -16,5 +17,5 @@ $(TEMP)/df_merged_clean.csv: merge_data.R
 $(TEMP)/df_dummy_added.csv: add_dummy.R
        R --vanilla < add_dummy.R
 
-$(TEMP)/data_preparation.pdf: data_preparation.Rmd
+$(OUTPUT)/data_preparation.pdf: data_preparation.Rmd
        Rscript -e 'rmarkdown::render("data_preparation.Rmd")'
