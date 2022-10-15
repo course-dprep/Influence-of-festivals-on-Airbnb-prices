@@ -58,7 +58,7 @@ Table with means controlled for weekday and host neighbourhood:
 ```{r show-means,echo=FALSE}
 means_festival[,c(1,2)] %>%
   knitr::kable(caption = 'Table with regular means of price' ,col.names = c("Festival",
-                             "Mean price controlled for weekday and host_neighbourhood"))
+                             "Mean price"))
 means_festival[,c(1,3)] %>%
   knitr::kable(caption = 'Table with means of price controlled for weekday and host neighbourhood' ,col.names = c("Festival","Mean price controlled for weekday and host_neighbourhood"))
 ```
