@@ -3,7 +3,14 @@ title: "Data preparation team 8"
 author: "Team 8"
 output: pdf_document
 ---
-
+```{r setup-download-packages-dprep, include=FALSE, echo=FALSE, message=FALSE}
+install.packages("tidyverse", repos="https://mirrors.evoluso.com/CRAN/")
+install.packages("dplyr", repos="https://mirrors.evoluso.com/CRAN/")
+install.packages("readr", repos="https://mirrors.evoluso.com/CRAN/")
+install.packages("knitr", repos="https://mirrors.evoluso.com/CRAN/")
+install.packages("ggplot2", repos="https://mirrors.evoluso.com/CRAN/")
+install.packages("here", repos="https://mirrors.evoluso.com/CRAN/")
+```
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
