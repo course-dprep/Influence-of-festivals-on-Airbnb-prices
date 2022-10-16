@@ -23,19 +23,12 @@ library(here)
 
 # Analysis team 8
 
-## Update input
-The data from the data-preparation stage was copied as input for the analysis stage.
-```{r setup, include=FALSE,echo=FALSE}
-# Copy data to input file
-file.copy(here("./gen/data-preparation/temp/df_dummy_added.csv"),here("./gen/analysis/input/data_ready_for_analysis.csv"))
-```
-
 ## Analysis
 For this analysis, a linear regresssion model was used, with 'price_numeric' as the dependent variable and 'Festival', 'weekday' and 'host_neighbourhood' as independent variables. A summary of the results can be found below. The base levels for the respective dummies were 'French Quarter Festival' for Festival, 'Friday' for weekday, and '11th Ward' for host_neighbourhood. 
 
 ```{r Analysis, include=FALSE,echo=FALSE}
 # Read input
-data_input <- read_csv(here("./gen/analysis/input/data_ready_for_analysis.csv"))
+data_input <- read_csv(here("./gen/analysis/input/df_dummy_added.csv"))
 
 # Linear regression
 regression_festivals <- lm(price_numeric ~ Festival+weekday+host_neighbourhood, data = data_input)

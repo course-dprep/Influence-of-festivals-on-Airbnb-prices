@@ -27,4 +27,4 @@ df_merged$weekday <- as.factor(df_merged$weekday)
 df_merged$host_neighbourhood <- as.factor(df_merged$host_neighbourhood)
 
 # Save as df_dummy_added
-write_csv(df_merged,file="./gen/data-preparation/temp/df_dummy_added.csv")
+write_csv(df_merged,file="./gen/analysis/input/df_dummy_added.csv")
