@@ -33,6 +33,13 @@ From our conducted analysis we conclude the following:
 -   The average price mark-up of an AirBnB during New Orleans Heritage & Jazz Festival is approximately €105.59
 -   The average price mark-up of an AirBnB during Mardi Gras is approximately €192.84
 
+### References
+New Orleans data. (n.d.). Retrieved September 29, 2022, from http://insideairbnb.com/get-the-data/
+
+Inside Airbnb Data Dictionary. (2022, August). Retrieved October 7, 2022, from https://docs.google.com/spreadsheets/d/1iWCNJcSutYqpULSQHlNyGInUvHg2BoUGoNRIGa6Szc4/edit
+
+Lopez, G. (2022, January 26). 12 Best New Orleans Festivals to Attend in 2022. Time Out New Orleans. Retrieved September 22, 2022, from https://www.timeout.com/new-orleans/things-to-do/best-new-orleans-festivals
+
 ## Repository overview
 
     - .github
