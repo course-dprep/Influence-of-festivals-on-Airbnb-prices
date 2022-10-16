@@ -3,7 +3,7 @@ library(readr)
 library(dplyr)
 
 # Read input
-data_input <- read_csv("./gen/analysis/input/data_ready_for_analysis.csv")
+data_input <- read_csv("./gen/analysis/input/df_dummy_added.csv")
 
 # Linear regression
 regression_festivals <- lm(price_numeric ~ Festival+weekday+host_neighbourhood, data = data_input)
