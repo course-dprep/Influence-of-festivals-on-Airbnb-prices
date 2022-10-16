@@ -1,10 +1,10 @@
 INPUT = gen/analysis/input/
-OUTPUT = ../../output
+ANALYSIS = ../src/analysis/
 
-all: $(INPUT)/data_ready_for_analysis.csv $(OUTPUT)analysis.pdf
+all: $(INPUT)/data_ready_for_analysis.csv $(ANALYSIS)analysis.pdf
 
 $(INPUT)/data_ready_for_analysis.csv: analyze.R
         R --vanilla < analyze.R
         
-$(OUTPUT)/analysis.pdf : analysis.Rmd
+$(ANALYSIS)/analysis.pdf : analysis.Rmd
         Rscript -e 'rmarkdown::render("analysis.Rmd")'
