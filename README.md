@@ -22,7 +22,7 @@ What is the typical price mark-up for Airbnb accommodations during a festival in
 
 To analyze the price mark-up for Airbnb accommodations during a festival in New Orleans, we will use a regression analysis. The independent variable is the average price of an Airbnb accommodations per day and as a dependent variable, we created dummy variables of whether the festival is taking place or not (whereas 0 = no festival taking place and 1 = festival taking place). Moreover, we also added 2 control variables (e.g. neighborhood and weekdays) to investigate whether the differences in price mark-up may be due to the day of the week on which the festival is taking place and whether the prices differ largely across neighborhoods.
 
-Data from [Inside Airbnb](http://insideairbnb.com/new-orleans) will be used over March 2022 - September 2022
+Data from [Inside Airbnb](http://insideairbnb.com/new-orleans) will be used over January 2022 - May 2022. The datasets that are used are the calendar datasets and the listings datasets from the Airbnb site. Using these sets allows for analysis for each listing on each day, so that prices can be compared between dates. The listings dataset will be merged to the calendar dataset to add extra information to the calendar data, of which the control variable host neighbourhood will be included in the analysis. 
 
 ### Results
 
@@ -79,12 +79,6 @@ git clone https://github.com/course-dprep/Influence-of-festivals-on-Airbnb-price
 ```
 make
 ```
-
-## References
-
-The data that have been used for this project have been retrieved from from http://insideairbnb.com/get-the-data/. The APA reference is mentioned below.
-
-Inside Airnbnb: Get the data. (n.d.). Insideairbnb.com. Retrieved October 17, 2022, from http://insideairbnb.com/get-the-data/
 
 ## About
 
