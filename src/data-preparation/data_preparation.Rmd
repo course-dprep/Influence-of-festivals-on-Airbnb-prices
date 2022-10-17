@@ -1,0 +1,143 @@
+---
+title: "Data preparation team 8"
+author: "Team 8"
+output: pdf_document
+---
+```{r setup-download-packages-dprep, include=FALSE, echo=FALSE, message=FALSE}
+install.packages("tidyverse", repos="https://mirrors.evoluso.com/CRAN/")
+install.packages("dplyr", repos="https://mirrors.evoluso.com/CRAN/")
+install.packages("readr", repos="https://mirrors.evoluso.com/CRAN/")
+install.packages("knitr", repos="https://mirrors.evoluso.com/CRAN/")
+install.packages("ggplot2", repos="https://mirrors.evoluso.com/CRAN/")
+install.packages("here", repos="https://mirrors.evoluso.com/CRAN/")
+```
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+library(readr)
+library(knitr)
+library(ggplot2)
+library(here)
+```
+
+
+## Research question
+
+The research question for this project was the following: What is the typical price mark-up for Airbnb accommodations during a festival in New Orleans? Furthermore, two control variables were added to this research question: the weekday and host-neighbourhood. In order to be able to investigate this question, several data preparation procedures have been followed, which will be described in this report. 
+
+
+## Data download
+
+The data that has been used for this analysis has been downloaded from [Inside airbnb](http://data.insideairbnb.com/united-states). From this weblink, the listings datasets for [March](http://data.insideairbnb.com/united-states/la/new-orleans/2022-03-08/data/listings.csv.gz) and [September](http://data.insideairbnb.com/united-states/la/new-orleans/2021-12-07/data/listings.csv.gz) have been combined with the calendar datasets for [March](http://data.insideairbnb.com/united-states/la/new-orleans/2022-03-08/data/calendar.csv.gz) and [September](http://data.insideairbnb.com/united-states/la/new-orleans/2021-12-07/data/calendar.csv.gz).
+
+```{r data_input, include=FALSE, echo=FALSE}
+dir.create(here('./data/listings'))
+dir.create(here('./data/calendar'))
+
+# download listings data
+download.file('http://data.insideairbnb.com/united-states/la/new-orleans/2022-03-08/data/listings.csv.gz', 
+              here('./data/listings/listings_maart.csv'))
+download.file('http://data.insideairbnb.com/united-states/la/new-orleans/2021-12-07/data/listings.csv.gz', 
+              here('./data/listings/listings_december.csv'))
+
+# download calendar data
+download.file('http://data.insideairbnb.com/united-states/la/new-orleans/2022-03-08/data/calendar.csv.gz',
+              here('./data/calendar/calendar_maart.csv'))
+download.file("http://data.insideairbnb.com/united-states/la/new-orleans/2021-12-07/data/calendar.csv.gz",
+              here('./data/calendar/calendar_december.csv'))
+```
+
+
+## Data merging
+
+Firstly, the May and September datasets were both merged together to create a calendar and a listings dataset. The calendar dataset contains pricing data for each date per listing, which enables the creation of the festival, weekday, and price variables for the analysis. However, since the host-neighbourhood was not a part of this dataset, the listings dataset has been merged with this dataset using an inner join on listing_id. Lastly, duplicate listing_id's were removed from the dataset. 
+
+## Data selection
+
+From the newly created dataset, df_merged, only the variables date, price.x (the pricing variable from the calendar dataset), and host_neighbourhood were selected, as these were the only necessary variables for our analysis. Furthermore, to ensure the dataset would not become too large, only the data from January 31st 2022 until May 31st 2022 was kept. This selection was made since all festivals take place in this period, while there are still enough non-festival dates to form a baseline for our analysis.
+
+```{r data_merge, include=FALSE, echo=FALSE}
+# Load datasets into R 
+df_calendar_maart <- read_csv(here("./data/calendar/calendar_maart.csv"))
+df_calendar_december <- read_csv(here("./data/calendar/calendar_december.csv"))
+df_listings_maart <- read_csv(here("./data/listings/listings_maart.csv"))
+df_listings_december <- read_csv(here("./data/listings/listings_december.csv"))
+
+# Merge the calendar data sets together 
+df_calendar <- bind_rows(df_calendar_maart, df_calendar_december)
+
+# Merge the listings data sets together
+df_listings <- bind_rows(df_listings_maart, df_listings_december)
+
+# Remove duplicates in the id column
+df_listings <- df_listings[!duplicated(df_listings$id),]
+
+# Keep observations only from January 31st till May 31
+df_calendar_clean <- df_calendar %>% arrange(date) %>% filter(between(date, as.Date("2022-1-31"), as.Date("2022-5-31")))
+
+# Merge the full calendar dataset with the listings data set
+df_merged <- inner_join(df_calendar_clean, df_listings,  by = c("listing_id"="id"))
+
+# Keep date, price, neighborhood
+df_merged_clean <- df_merged[,c(2,4,27)]
+
+# Save merged data
+write_csv(df_merged_clean,file=here("./gen/data-preparation/temp/df_merged.csv"))
+```
+## Data cleaning
+
+After the selection of the data, we found that there were some NA's included for the host-neighbourhood variable. This data was excluded from the analysis, as the host_neighbourhood is one of the control variables and no viable method for imputation was deemed more effective. Furthermore, price.x was converted to a numeric variable using the numeric function to enable analysis. As all prices were given in US$, no further conversion was needed for this variable. 
+
+```{r data_clean, include=FALSE, echo=FALSE}
+# Load merged data 
+df_merged <- read_csv(here("./gen/data-preparation/temp/df_merged.csv"))
+
+# set price as numeric
+df_merged$price_numeric <- as.numeric(parse_number(df_merged$price.x))
+
+# Load dplyr
+library(dplyr)
+
+# exclude NA's for neighborhoods
+df_merged <- df_merged %>% filter(!is.na(df_merged$host_neighbourhood))
+
+write.csv(df_merged,file=here("./gen/data-preparation/temp/df_merged_clean.csv"))
+```
+
+## Addition of dummy variables
+
+With the cleaned data, several dummy variables were created. For each of the festivals('Mardi Gras', 'French Quarter festival' and 'New Orleans Jazz & Heritage festival'), a separate dummy variable was created. These variables were combined into the variable 'Festival', where they were assigned with the name of the festival. If no festival took place on a certain date, this row would get the value 'no festival' for this variable. Furthermore, the 'weekday' function was used to convert the day to a weekday. Lastly, the variables 'Festival', 'weekday', and 'host_neighbourhood' have been converted to factors to facilitate the analysis. For these variables, the use of effect coding was investigated. However, in the process of setting these variables it was found to take more than 1 hour to set a single variable, despite using a loop function. Therefore, it was decided that it was technically not feasible to create all dummy variables using this method, given that this research requires `r length(unique(df_merged$host_neighbourhood)) + length(unique(df_merged$Festival)) + length(unique(df_merged$weekday))` dummies to be set.
+
+```{r data_add, include=FALSE, echo=FALSE}
+# Load data
+df_merged <- read_csv(here("./gen/data-preparation/temp/df_merged_clean.csv"))
+
+# Create dummy variables for festival dates
+
+# Mardi Gras 23 February - 1 March 2022
+# French Quarter Festival 21 April - 24 April 2022
+# New Orleans Jazz & Heritage Festival 29 April - 8 May 2022
+
+df_merged$Mardi_Gras_2022 <- if_else(df_merged$date >= as.Date('2022-02-23') & df_merged$date <= as.Date('2022-03-01'),TRUE,FALSE)
+df_merged$French_Quarter_2022 <- if_else(df_merged$date >= as.Date('2022-04-21') & df_merged$date <= as.Date('2022-04-24'),TRUE,FALSE)
+df_merged$Jazz_Heritage_2022 <- if_else(df_merged$date >= as.Date('2022-04-29') & df_merged$date <= as.Date('2022-05-08'),TRUE,FALSE)
+df_merged$Festival <- if_else(df_merged$date >= as.Date('2022-02-23') & df_merged$date <= as.Date('2022-03-01'),'Mardi Gras', if_else(df_merged$date >= as.Date('2022-04-21') & df_merged$date <= as.Date('2022-04-24'),"French Quarter Festival",if_else(df_merged$date >= as.Date('2022-04-29') & df_merged$date <= as.Date('2022-05-08'),'New Orleans Jazz & Heritage Festival',"No festival")))
+
+# Include dummies as factor for analysis
+df_merged$Mardi_Gras_2022 <- as.factor(df_merged$Mardi_Gras_2022)
+df_merged$French_Quarter_2022 <- as.factor(df_merged$French_Quarter_2022)
+df_merged$Jazz_Heritage_2022 <- as.factor(df_merged$Jazz_Heritage_2022)
+df_merged$Festival <- as.factor(df_merged$Festival)
+
+# add dummy weekday in english
+Sys.setlocale("LC_TIME", "en_US")
+df_merged$weekday <- weekdays(df_merged$date)
+
+# add weekday and neighborhood as factor for analysis
+df_merged$weekday <- as.factor(df_merged$weekday)
+df_merged$host_neighbourhood <- as.factor(df_merged$host_neighbourhood)
+
+# Save as df_dummy_added
+write_csv(df_merged,file=here("./gen/analysis/input/df_dummy_added.csv"))
+```

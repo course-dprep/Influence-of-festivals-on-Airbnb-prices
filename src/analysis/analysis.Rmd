@@ -1,0 +1,93 @@
+---
+title: "Analysis team 8"
+author: "Team 8"
+output: pdf_document
+---
+```{r setup-download-packages-analysis, include=FALSE, echo=FALSE, message=FALSE}
+install.packages("tidyverse", repos="https://mirrors.evoluso.com/CRAN/")
+install.packages("dplyr", repos="https://mirrors.evoluso.com/CRAN/")
+install.packages("readr", repos="https://mirrors.evoluso.com/CRAN/")
+install.packages("knitr", repos="https://mirrors.evoluso.com/CRAN/")
+install.packages("ggplot2", repos="https://mirrors.evoluso.com/CRAN/")
+install.packages("here", repos="https://mirrors.evoluso.com/CRAN/")
+```
+```{r setup-analysis, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+library(readr)
+library(knitr)
+library(ggplot2)
+library(here)
+```
+
+# Analysis team 8
+
+## Analysis
+For this analysis, a linear regresssion model was used, with 'price_numeric' as the dependent variable and 'Festival', 'weekday' and 'host_neighbourhood' as independent variables. A summary of the results can be found below. The base levels for the respective dummies were 'French Quarter Festival' for Festival, 'Friday' for weekday, and '11th Ward' for host_neighbourhood. 
+
+```{r Analysis, include=FALSE,echo=FALSE}
+# Read input
+data_input <- read_csv(here("./gen/analysis/input/df_dummy_added.csv"))
+
+# Linear regression
+regression_festivals <- lm(price_numeric ~ Festival+weekday+host_neighbourhood, data = data_input)
+regression_summary <- summary(regression_festivals)
+```
+```{r summary, echo=FALSE}
+regression_summary$coefficients[,c(1,4)]%>%
+  knitr::kable(col.names = c("Estimate", 
+                             "P-value"))
+```
+
+```{r dataframes, include=FALSE,echo=FALSE}
+regression_summary <- summary(regression_festivals)
+
+# create dataframe for means per festival
+means_festival <- data_input %>% group_by(Festival) %>% summarize(festival_means = mean(price_numeric))
+
+# Add controlled means
+means_festival$controlled_means <- c(regression_summary$coefficients[1,1],regression_summary$coefficients[2,1]+ regression_summary$coefficients[1,1],regression_summary$coefficients[3,1]+ regression_summary$coefficients[1,1], regression_summary$coefficients[4,1]+ regression_summary$coefficients[1,1])
+
+# Show controlled means per festival
+
+```
+
+Table with means controlled for weekday and host neighbourhood:
+
+```{r show-means,echo=FALSE}
+means_festival[,c(1,2)] %>%
+  knitr::kable(caption = 'Table with regular means of price' ,col.names = c("Festival",
+                             "Mean price"))
+means_festival[,c(1,3)] %>%
+  knitr::kable(caption = 'Table with means of price controlled for weekday and host neighbourhood' ,col.names = c("Festival","Mean price controlled for weekday and host_neighbourhood"))
+```
+
+As visible in the regression summary, the festival variables are clearly significant. The mean of every festival is higher than the 'No festival' mean controlled for weekday and host neighbourhood at $`r round(regression_summary$coefficients[1,1]+regression_summary$coefficients[4,1],2)`. The French Quarter Festival has the lowest price of the festivals when controlling for weekday and host neighbourhood at $`r round(regression_summary$coefficients[1,1],2)`. Second is the New Orleans Heritage & Jazz festival, with a price of $`r round(regression_summary$coefficients[3,1]+ regression_summary$coefficients[1,1],2)`. The highest price belongs to Mardi Gras, with $`r round(regression_summary$coefficients[2,1]+ regression_summary$coefficients[1,1],2)`.
+
+## Visualization
+To visualize the difference that controlling makes in this instance, both plots are visible below:
+```{r create-plots, include=FALSE,echo=FALSE}
+# create plot
+plot_festival_controlled_means <-ggplot(data=means_festival, aes(x=Festival, y=controlled_means)) + geom_bar(stat="identity")
+plot_festival_regular_means <-ggplot(data=means_festival, aes(x=Festival, y=festival_means)) + geom_bar(stat="identity")
+
+# Show plot
+```
+```{r plot-plots, echo=FALSE}
+plot_festival_regular_means
+plot_festival_controlled_means
+
+```
+
+
+## Conclusion
+
+The price-mark up for the different festivals controlled for weekday and host neighbourhood is as follows:
+
+- French Quarter Festival
+  + $`r round(regression_summary$coefficients[1,1],2)-round(regression_summary$coefficients[1,1]+regression_summary$coefficients[4,1],2)`
+- New Orleans Jazz & Heritage Festival
+  + $`r round(regression_summary$coefficients[3,1]+ regression_summary$coefficients[1,1],2)-round(regression_summary$coefficients[1,1]+regression_summary$coefficients[4,1],2)`
+- Mardi Gras
+  + $`r round(regression_summary$coefficients[2,1]+ regression_summary$coefficients[1,1],2)-round(regression_summary$coefficients[1,1]+regression_summary$coefficients[4,1],2)`

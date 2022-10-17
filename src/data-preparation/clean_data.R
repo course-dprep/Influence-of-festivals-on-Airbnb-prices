@@ -1,11 +1,16 @@
+# Data preparation/cleaning
+
 # Load merged data 
-load("./gen/data-preparation/temp/data_merged.RData")
+df_merged <- read_csv("./gen/data-preparation/temp/df_merged.csv")
 
-# Drop observations with V1 <= -0.9
-df_cleaned <- df_merged[df_merged$V1 > -0.9,]
+# Set price as numeric
+df_merged$price_numeric <- as.numeric(parse_number(df_merged$price.x))
 
-# Remove V1
-df_cleaned <- df_cleaned[,c(1,2,4:7)]
+# Load dplyr
+library(dplyr)
 
-# Save cleaned data
-save(df_cleaned,file="./gen/data-preparation/output/data_cleaned.RData")
+# Exclude NA's for neighborhoods
+df_merged <- df_merged %>% filter(!is.na(df_merged$host_neighbourhood))
+
+# Write csv
+write.csv(df_merged,file="./gen/data-preparation/temp/df_merged_clean.csv")
