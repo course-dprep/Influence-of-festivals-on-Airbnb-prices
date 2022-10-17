@@ -73,7 +73,7 @@ git clone https://github.com/course-dprep/Influence-of-festivals-on-Airbnb-price
 make
 ```
 
-### References
+## References
 New Orleans data. (n.d.). Retrieved September 29, 2022, from http://insideairbnb.com/get-the-data/
 
 Inside Airbnb Data Dictionary. (2022, August). Retrieved October 7, 2022, from https://docs.google.com/spreadsheets/d/1iWCNJcSutYqpULSQHlNyGInUvHg2BoUGoNRIGa6Szc4/edit
