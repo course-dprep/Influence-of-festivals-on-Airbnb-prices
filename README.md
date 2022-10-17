@@ -44,14 +44,18 @@ Lopez, G. (2022, January 26). 12 Best New Orleans Festivals to Attend in 2022. T
 
     - .github
     - data
+      - calendar(created by running code)
+      - listings(created by running code)
     - gen
       - analysis
+        - input
+        - output
+        - temp
       - data-preparation
-      - paper
+        - temp  
     - src
       - analysis
       - data-preparation
-      - paper
     - README.md
     - Makefile
 
@@ -75,6 +79,12 @@ git clone https://github.com/course-dprep/Influence-of-festivals-on-Airbnb-price
 ```
 make
 ```
+
+## References
+
+The data that have been used for this project have been retrieved from from http://insideairbnb.com/get-the-data/. The APA reference is mentioned below.
+
+Inside Airnbnb: Get the data. (n.d.). Insideairbnb.com. Retrieved October 17, 2022, from http://insideairbnb.com/get-the-data/
 
 ## About
 
